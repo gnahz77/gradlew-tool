@@ -7,16 +7,20 @@ export interface ParsedLine {
   clean: string;
   isTaskNoise: boolean;
   isWarning: boolean;
+  hadTaskNoise: boolean;
   issue?: BuildIssue;
 }
 
 export function parseLine(line: string): ParsedLine {
-  const clean = stripAnsi(line).trimEnd();
-  const isTaskNoise = TASK_LINE_PATTERN.test(clean);
+  const rawClean = stripAnsi(line).trimEnd();
+  const taskIndex = rawClean.indexOf("> Task ");
+  const isTaskNoise = taskIndex === 0 && TASK_LINE_PATTERN.test(rawClean);
+  const hadTaskNoise = taskIndex >= 0;
+  const clean = taskIndex > 0 ? rawClean.slice(0, taskIndex).trimEnd() : rawClean;
   const isWarning = WARNING_LINE_PATTERN.test(clean) || clean.startsWith("Warning:");
   const issue = parseIssue(clean);
 
-  return { clean, isTaskNoise, isWarning, issue };
+  return { clean, isTaskNoise, isWarning, hadTaskNoise, issue };
 }
 
 function parseIssue(line: string): BuildIssue | undefined {

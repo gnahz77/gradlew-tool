@@ -27,7 +27,6 @@ export function parseBuildResult(input: ParseBuildInput, options: ParseOptions):
 
   for (const rawLine of input.lines) {
     const parsed = parseLine(rawLine);
-    context.add(parsed.clean);
 
     if (BUILD_SUCCESS_PATTERN.test(parsed.clean)) {
       sawSuccess = true;
@@ -42,9 +41,16 @@ export function parseBuildResult(input: ParseBuildInput, options: ParseOptions):
       failedTask = failedTaskMatch[1] ?? failedTask;
     }
 
-    if (parsed.isTaskNoise) {
+    if (parsed.hadTaskNoise) {
       taskLinesSuppressed += 1;
+    }
+
+    if (parsed.isTaskNoise) {
       continue;
+    }
+
+    if (parsed.clean.length > 0) {
+      context.add(parsed.clean);
     }
 
     if (parsed.isWarning) {
