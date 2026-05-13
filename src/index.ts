@@ -1,4 +1,5 @@
 export { main, parseCliArgs, VERSION } from "./app.js";
+export { runInit, resolveInstallTargets, normalizeInitTargets, detectGlobalAgents, detectProjectTargets } from "./init/skillInstaller.js";
 export { runGradle } from "./runner/gradleRunner.js";
 export { buildCommand } from "./runner/commandBuilder.js";
 export { resolveGradlew } from "./runner/resolveGradlew.js";

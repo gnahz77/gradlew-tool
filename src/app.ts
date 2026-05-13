@@ -1,13 +1,18 @@
 import path from "node:path";
+import { runInit, normalizeInitTargets } from "./init/skillInstaller.js";
 import { formatJsonResult } from "./reporter/jsonReporter.js";
 import { formatTextResult } from "./reporter/textReporter.js";
 import { runGradle } from "./runner/gradleRunner.js";
-import type { CliOptions, ShellMode } from "./types/options.js";
+import type { CliOptions, InitInstallResult, InitOptions, ShellMode } from "./types/options.js";
 
 export const VERSION = "0.1.0";
 const SHELL_MODES = new Set<ShellMode>(["direct", "powershell", "pwsh", "cmd", "bash", "sh"]);
 
 export async function main(argv = process.argv.slice(2)): Promise<number> {
+  if (argv[0] === "init") {
+    return runInitCommand(argv.slice(1));
+  }
+
   const options = parseCliArgs(argv);
 
   if (options.help) {
@@ -29,6 +34,13 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
   }
 
   return result.exitCode;
+}
+
+async function runInitCommand(argv: string[]): Promise<number> {
+  const options = parseInitArgs(argv);
+  const result = runInit(options);
+  process.stdout.write(`${formatInitResult(result, options.json)}\n`);
+  return 0;
 }
 
 export function parseCliArgs(argv: string[]): CliOptions {
@@ -145,6 +157,7 @@ function readNumberArg(argv: string[], index: number, optionName: string): numbe
 
 function getHelpText(): string {
   return `gradlew-tool [options] -- [gradleArgs...]
+gradlew-tool init [agent|codex|"claude code"|opencode|current|project|local...]
 
 Options:
   --json
@@ -162,4 +175,51 @@ Options:
   --dry-run
   --help
   --version`;
+}
+
+function parseInitArgs(argv: string[]): InitOptions {
+  const options: InitOptions = {
+    json: false,
+    cwd: process.cwd(),
+    targets: [],
+  };
+
+  const passthroughTargets: string[] = [];
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    switch (arg) {
+      case "--json":
+        options.json = true;
+        continue;
+      case "--cwd":
+        options.cwd = path.resolve(readStringArg(argv, ++index, "--cwd"));
+        continue;
+      default:
+        passthroughTargets.push(arg);
+    }
+  }
+
+  options.targets = normalizeInitTargets(passthroughTargets);
+  return options;
+}
+
+function formatInitResult(result: InitInstallResult, asJson: boolean): string {
+  if (asJson) {
+    return JSON.stringify(result, null, 2);
+  }
+
+  const lines = [
+    `INIT_STATUS: ${result.status.toUpperCase()}`,
+    `SOURCE_SKILL: ${result.sourceSkill}`,
+    `MESSAGE: ${result.message}`,
+  ];
+
+  if (result.installed.length > 0) {
+    lines.push("");
+    lines.push("INSTALLED_TO:");
+    lines.push(...result.installed.map((target) => `${target.scope}:${target.agent} ${target.directory}`));
+  }
+
+  return lines.join("\n");
 }

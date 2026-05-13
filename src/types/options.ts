@@ -1,6 +1,8 @@
 import type { ErrorCategory } from "./result.js";
 
 export type ShellMode = "direct" | "powershell" | "pwsh" | "cmd" | "bash" | "sh";
+export type InitAgent = "agent" | "codex" | "claude-code" | "opencode";
+export type InitTarget = InitAgent | "current";
 
 export interface CliOptions {
   json: boolean;
@@ -19,6 +21,26 @@ export interface CliOptions {
   help: boolean;
   version: boolean;
   gradleArgs: string[];
+}
+
+export interface InitOptions {
+  json: boolean;
+  cwd: string;
+  targets: InitTarget[];
+}
+
+export interface InitInstallTarget {
+  scope: "global" | "project";
+  agent: InitAgent;
+  directory: string;
+}
+
+export interface InitInstallResult {
+  status: "installed" | "skipped";
+  sourceSkill: string;
+  installed: InitInstallTarget[];
+  requestedTargets: InitTarget[];
+  message: string;
 }
 
 export interface ParseOptions {
