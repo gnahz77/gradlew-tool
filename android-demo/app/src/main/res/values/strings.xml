@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">TestDemo</string>
+
+    <string name="button_1_text">适趣我爱说 - 编辑信息页面</string>
+    <string name="button_2_text">高阶英语-文库</string>
+    <string name="button_3_text">适趣文常知识-读一读</string>
+
+    <!-- 编辑信息页面 -->
+    <string name="edit_profile_title">编辑信息</string>
+    <string name="change_avatar">点击更换头像</string>
+    <string name="nickname">昵称</string>
+    <string name="nickname_hint">请输入昵称</string>
+    <string name="birthday">你的生日</string>
+    <string name="birthday_hint">请选择生日</string>
+    <string name="gender_male">男生</string>
+    <string name="gender_female">女生</string>
+    <string name="complete">完成</string>
+
+    <!-- BottomSheet -->
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="take_photo">拍照</string>
+    <string name="select_from_album">从相册选择</string>
+    <string name="birthday_title">生日</string>
+    
+    <!-- Library page -->
+    <string name="tab_home">首页</string>
+    <string name="tab_listening">听力</string>
+    <string name="tab_library">文库</string>
+    <string name="tab_profile">我的</string>
+    <string name="library_title">文库</string>
+    <string name="recommended_reading">精选阅读</string>
+    <string name="difficulty_label">难度值：</string>
+    <string name="word_count">%d词</string>
+    <string name="difficulty_value">难度:%d</string>
+
+    <!-- Article reading page -->
+    <string name="article_page_indicator">%1$d / %2$d</string>
+    <string name="article_loading">加载中…</string>
+    <string name="article_load_error">加载失败，请重试</string>
+</resources>

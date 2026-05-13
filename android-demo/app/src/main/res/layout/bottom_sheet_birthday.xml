@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_FFFFFFFF"
+    android:paddingBottom="24dp">
+
+    <!-- 顶部导航栏 -->
+
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/cancel"
+        android:textColor="@color/color_FF000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="@string/birthday_title"
+        android:textColor="@color/color_FF000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/confirm"
+        android:textColor="@color/color_FF000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 年份选择器 -->
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/wheel_year"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/wheel_month"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="false"
+        app:wheel_item_align="center"
+        app:wheel_item_text_color="@color/color_8E8E93"
+        app:wheel_item_text_size="18sp"
+        app:wheel_selected_item_text_color="@color/color_FF000000"
+        app:wheel_visible_item_count="5" />
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/wheel_month"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/wheel_day"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/wheel_year"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="false"
+        app:wheel_item_align="center"
+        app:wheel_item_text_color="@color/color_8E8E93"
+        app:wheel_item_text_size="18sp"
+        app:wheel_selected_item_text_color="@color/color_FF000000"
+        app:wheel_visible_item_count="5" />
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/wheel_day"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/wheel_month"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="false"
+        app:wheel_item_align="center"
+        app:wheel_item_text_color="@color/color_8E8E93"
+        app:wheel_item_text_size="18sp"
+        app:wheel_selected_item_text_color="@color/color_FF000000"
+        app:wheel_visible_item_count="5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

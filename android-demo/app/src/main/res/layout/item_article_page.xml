@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="32dp">
+
+    <!-- 插图 -->
+    <ImageView
+        android:id="@+id/ivIllustration"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_image_rounded"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintDimensionRatio="5:3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 音量调节面板（默认隐藏） -->
+    <LinearLayout
+        android:id="@+id/volumePanel"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/bg_volume_slider"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/btnVolume"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnVolume"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/seekBarVolume"
+            android:layout_width="140dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="80"
+            android:progressDrawable="@drawable/bg_volume_seek_progress"
+            android:rotation="270"
+            android:thumb="@drawable/bg_volume_seek_thumb"
+            android:thumbOffset="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- 音量按钮 -->
+    <ImageView
+        android:id="@+id/btnVolume"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_control_button"
+        android:padding="8dp"
+        android:src="@drawable/ic_volume"
+        app:layout_constraintBottom_toBottomOf="@id/ivIllustration"
+        app:layout_constraintStart_toStartOf="@id/ivIllustration" />
+
+    <!-- 重新播放按钮 -->
+    <ImageView
+        android:id="@+id/btnReplay"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_control_button"
+        android:padding="8dp"
+        android:src="@drawable/ic_replay"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIllustration"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlayPause" />
+
+    <!-- 播放/暂停按钮 -->
+    <ImageView
+        android:id="@+id/btnPlayPause"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_control_button_large"
+        android:padding="10dp"
+        android:src="@drawable/ic_pause"
+        app:layout_constraintBottom_toBottomOf="@id/ivIllustration"
+        app:layout_constraintEnd_toEndOf="@id/ivIllustration" />
+
+    <!-- 文字流内容 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWords"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="12dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivIllustration" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

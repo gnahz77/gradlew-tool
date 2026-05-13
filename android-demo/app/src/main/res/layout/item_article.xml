@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_article_card">
+
+    <!-- 封面 -->
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="78dp"
+        android:layout_height="52dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 标题 -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Title"
+        android:textColor="@color/color_FF000000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivCover"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 难度 -->
+    <ImageView
+        android:id="@+id/ivDifficulty"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_difficulty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivCover"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:tint="@color/color_2B66FF" />
+
+    <TextView
+        android:id="@+id/tvDifficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="难度:60"
+        android:textColor="@color/color_2B66FF"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivDifficulty"
+        app:layout_constraintStart_toEndOf="@id/ivDifficulty"
+        app:layout_constraintTop_toTopOf="@id/ivDifficulty" />
+
+    <!-- 单词数 -->
+    <ImageView
+        android:id="@+id/ivWordCount"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_word_count"
+        app:layout_constraintBottom_toBottomOf="@id/tvDifficulty"
+        app:layout_constraintStart_toEndOf="@id/tvDifficulty"
+        app:layout_constraintTop_toTopOf="@id/tvDifficulty" />
+
+    <TextView
+        android:id="@+id/tvWordCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="115词"
+        android:textColor="@color/color_8E8E93"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivWordCount"
+        app:layout_constraintStart_toEndOf="@id/ivWordCount"
+        app:layout_constraintTop_toTopOf="@id/ivWordCount" />
+
+    <!-- 分类标签 -->
+    <TextView
+        android:id="@+id/tvCategoryTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_category_tag"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:text="休闲生活"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

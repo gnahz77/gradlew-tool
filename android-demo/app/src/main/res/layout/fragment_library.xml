@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFFFFFFF">
+
+    <View
+        android:id="@+id/gradientHeader"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_gradient_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/library_title"
+        android:textColor="@color/color_FF000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/gradientHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 左侧类别列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategory"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@color/color_F2F4F7"
+        android:paddingVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gradientHeader" />
+
+    <TextView
+        android:id="@+id/tvDifficultyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:text="@string/difficulty_label"
+        android:textColor="@color/color_FF000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/rvCategory"
+        app:layout_constraintTop_toBottomOf="@+id/gradientHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDifficulty"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDifficultyLabel"
+        app:layout_constraintTop_toBottomOf="@+id/gradientHeader" />
+
+    <!-- 文章列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvArticles"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rvCategory"
+        app:layout_constraintTop_toBottomOf="@+id/rvDifficulty" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

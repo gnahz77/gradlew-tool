@@ -1,0 +1,14 @@
+{
+  "name": "@gnahz77/gradlew-tool",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "bin": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {}
+}
