@@ -1,14 +1,31 @@
 {
-  "name": "@gnahz77/gradlew-tool",
-  "version": "0.0.1",
-  "main": "src/index.ts",
-  "bin": {},
-  "publishConfig": {
-    "access": "public"
+  "name": "gradlew-tool",
+  "version": "0.1.0",
+  "description": "AI-friendly Gradle wrapper that summarizes Android and Gradle build output.",
+  "main": "./dist/index.js",
+  "bin": {
+    "gradlew-tool": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsup --config tsup.config.ts",
+    "test": "vitest run",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm test"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",
-    "typescript": "^5.9.2"
-  },
-  "dependencies": {}
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
 }
