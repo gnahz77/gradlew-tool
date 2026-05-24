@@ -1,0 +1,13 @@
+> Task :app:processDebugMainManifest FAILED
+Warning: Some harmless warning
+app/src/main/AndroidManifest.xml:15:5-42 Error:
+	android:exported needs to be explicitly specified for element <activity#com.example.MainActivity>.
+Manifest merger failed with multiple errors, see logs
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugMainManifest'.
+> Manifest merger failed with multiple errors, see logs
+
+BUILD FAILED in 6s

@@ -1,0 +1,11 @@
+> Task :app:compileDebugKotlin FAILED
+e: file:///workspace/app/src/main/java/com/example/MainActivity.kt:12:5 Unresolved reference: doesNotExist
+e: file:///workspace/app/src/main/java/com/example/MainActivity.kt:18:9 Type mismatch: inferred type is String but Int was expected
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+
+BUILD FAILED in 9s

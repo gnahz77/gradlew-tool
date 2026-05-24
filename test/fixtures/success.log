@@ -1,0 +1,6 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:assembleDebug UP-TO-DATE
+
+BUILD SUCCESSFUL in 2s
+12 actionable tasks: 1 executed, 11 up-to-date
