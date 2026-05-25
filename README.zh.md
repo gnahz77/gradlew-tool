@@ -75,6 +75,8 @@ gradlew-tool --json -- :app:assembleDebug --continue
 - 可选的 warning 摘要
 - 可选的日志尾部摘要
 
+默认情况下，`gradlew-tool` 会在 `600000` 毫秒（10 分钟）后终止仍未结束的 Gradle 进程。可通过 `--timeout <ms>` 覆盖。
+
 完整日志始终会保存到：
 
 ```text
@@ -125,6 +127,7 @@ init [agent|codex|"claude code"|opencode|current|project|local...]
 --json
 --show-warnings
 --tail <n>
+--timeout <ms>
 --full-output
 --log-dir <dir>
 --gradlew <path>
@@ -224,6 +227,7 @@ gradlew-tool --json --cwd android-demo -- :app:assembleDebug
 ```bash
 gradlew-tool --show-warnings --cwd android-demo -- :app:assembleDebug
 gradlew-tool --tail 120 --cwd android-demo -- :app:assembleDebug
+gradlew-tool --timeout 900000 --cwd android-demo -- :app:assembleDebug
 gradlew-tool --full-output --cwd android-demo -- :app:assembleDebug
 ```
 

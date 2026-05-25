@@ -1,4 +1,4 @@
-export type BuildStatus = "success" | "failed" | "wrapper-not-found" | "dry-run";
+export type BuildStatus = "success" | "failed" | "timed-out" | "wrapper-not-found" | "dry-run";
 
 export type ErrorCategory =
   | "none"
@@ -13,6 +13,7 @@ export type ErrorCategory =
   | "test-failure"
   | "sdk-environment-error"
   | "permission-error"
+  | "process-timeout"
   | "gradle-wrapper-not-found"
   | "unknown-build-failure";
 

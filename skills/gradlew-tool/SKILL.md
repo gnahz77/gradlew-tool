@@ -45,6 +45,7 @@ Resolution order:
 - Forward unknown arguments to Gradle
 - Append `--console=plain` unless already provided
 - Append `--warning-mode=summary` unless already provided
+- Terminate the Gradle process after `600000` ms by default unless `--timeout <ms>` overrides it
 - Save the full log to `.agent-build/gradle-YYYYMMDD-HHmmss.log`
 - Preserve the Gradle process exit code
 - Filter noisy `> Task ...` lines from default summarized output
@@ -108,6 +109,7 @@ Most commonly used parameters:
 - `--json`
 - `--show-warnings`
 - `--tail <n>`
+- `--timeout <ms>`
 - `--full-output`
 - `--log-dir <dir>`
 - `--gradlew <path>`
@@ -144,6 +146,7 @@ Use repeated `--shell-arg <arg>` values to insert additional shell arguments bef
 - Use `--full-output` when raw Gradle output, including task lines, is required.
 - Use `--show-warnings` when warning details are required in summarized output.
 - Use `--tail <n>` to increase the number of filtered tail lines shown for failed runs.
+- Use `--timeout <ms>` to allow longer-running Gradle builds when needed.
 - Use `--dry-run` to inspect the final command without executing it.
 
 ## References

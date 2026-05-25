@@ -11,6 +11,11 @@ import { quoteForCmd } from "../utils/quote.js";
 import type { CliOptions } from "../types/options.js";
 import type { BuildSummary } from "../types/result.js";
 
+interface ExecutionOutcome {
+  exitCode: number;
+  timedOut: boolean;
+}
+
 export async function runGradle(options: CliOptions): Promise<BuildSummary> {
   const wrapper = resolveGradlew({
     cwd: options.cwd,
@@ -84,6 +89,89 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
       windowsHide: true,
       env: process.env,
     });
+    let finished = false;
+    let timedOut = false;
+    let timeoutHandle: NodeJS.Timeout | undefined;
+
+    const finalize = (outcome: ExecutionOutcome) => {
+      if (finished) {
+        return;
+      }
+
+      finished = true;
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
+
+      lineHandler.flush();
+      logStream.end();
+
+      const durationMs = Date.now() - startedAt;
+      if (outcome.timedOut) {
+        const message = `Process exceeded timeout of ${options.timeout}ms and was terminated.`;
+        lines.push(message);
+        const parsed = parseBuildResult(
+          {
+            exitCode: 124,
+            shell: options.shell,
+            command: builtCommand.displayCommand,
+            fullLog: displayLogPath,
+            durationMs,
+            lines,
+          },
+          {
+            maxErrorLines: options.maxErrorLines,
+            showWarnings: options.showWarnings,
+            tail: options.tail,
+          },
+        );
+
+        resolve({
+          ...parsed,
+          status: "timed-out",
+          exitCode: 124,
+          category: "process-timeout",
+          errors: [
+            {
+              severity: "error",
+              category: "process-timeout",
+              message,
+            },
+            ...parsed.errors.filter((issue) => issue.message !== message),
+          ],
+          suggestion: "Increase `--timeout`, inspect the saved log, or optimize the Gradle task before retrying.",
+        });
+        return;
+      }
+
+      resolve(
+        parseBuildResult(
+          {
+            exitCode: outcome.exitCode,
+            shell: options.shell,
+            command: builtCommand.displayCommand,
+            fullLog: displayLogPath,
+            durationMs,
+            lines,
+          },
+          {
+            maxErrorLines: options.maxErrorLines,
+            showWarnings: options.showWarnings,
+            tail: options.tail,
+          },
+        ),
+      );
+    };
+
+    timeoutHandle = setTimeout(() => {
+      timedOut = true;
+      logStream.write(`\nProcess exceeded timeout of ${options.timeout}ms and was terminated.\n`);
+      child.kill();
+      setTimeout(() => {
+        child.kill("SIGKILL");
+      }, 5000).unref();
+    }, options.timeout);
+    timeoutHandle.unref();
 
     const lineHandler = createLineCollector((line) => {
       lines.push(line);
@@ -105,30 +193,17 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
     });
 
     child.on("error", (error) => {
-      logStream.end();
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
       reject(error);
     });
 
     child.on("close", (code) => {
-      lineHandler.flush();
-      logStream.end();
-      resolve(
-        parseBuildResult(
-          {
-            exitCode: code ?? 1,
-            shell: options.shell,
-            command: builtCommand.displayCommand,
-            fullLog: displayLogPath,
-            durationMs: Date.now() - startedAt,
-            lines,
-          },
-          {
-            maxErrorLines: options.maxErrorLines,
-            showWarnings: options.showWarnings,
-            tail: options.tail,
-          },
-        ),
-      );
+      finalize({
+        exitCode: code ?? 1,
+        timedOut,
+      });
     });
   });
 }

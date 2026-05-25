@@ -40,4 +40,24 @@ describe("reporters", () => {
     const result = formatJsonResult(sample);
     expect(JSON.parse(result).category).toBe("gradle-cache-lock");
   });
+
+  it("shows log tail for timed out results", () => {
+    const result = formatTextResult({
+      ...sample,
+      status: "timed-out",
+      category: "process-timeout",
+      exitCode: 124,
+      errors: [
+        {
+          severity: "error",
+          category: "process-timeout",
+          message: "Process exceeded timeout of 600000ms and was terminated.",
+        },
+      ],
+      tail: ["starting build", "Process exceeded timeout of 600000ms and was terminated."],
+    });
+
+    expect(result).toContain("BUILD_STATUS: TIMED-OUT");
+    expect(result).toContain("LOG_TAIL:");
+  });
 });

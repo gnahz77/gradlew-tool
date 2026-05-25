@@ -20,6 +20,7 @@ gradlew-tool --json --cwd <project-dir> -- :module:taskName --continue --stacktr
 ```bash
 gradlew-tool --show-warnings --cwd <project-dir> -- build
 gradlew-tool --tail 160 --cwd <project-dir> -- build
+gradlew-tool --timeout 900000 --cwd <project-dir> -- build
 gradlew-tool --full-output --cwd <project-dir> -- build
 ```
 

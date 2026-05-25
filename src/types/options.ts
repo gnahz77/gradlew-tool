@@ -8,6 +8,7 @@ export interface CliOptions {
   json: boolean;
   showWarnings: boolean;
   tail: number;
+  timeout: number;
   fullOutput: boolean;
   logDir: string;
   gradlew?: string;

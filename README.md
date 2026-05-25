@@ -69,6 +69,8 @@ Default text output is compact and AI-agent friendly:
 - Optional warning summary
 - Optional log tail
 
+By default, `gradlew-tool` times out the Gradle process after `600000` ms (10 minutes). Use `--timeout <ms>` to override it.
+
 The full build log is always saved to:
 
 ```text
@@ -117,6 +119,7 @@ init [agent|codex|"claude code"|opencode|current|project|local...]
 --json
 --show-warnings
 --tail <n>
+--timeout <ms>
 --full-output
 --log-dir <dir>
 --gradlew <path>
@@ -216,5 +219,6 @@ This keeps terminal context small while preserving the full log on disk for foll
 ```bash
 gradlew-tool --show-warnings --cwd android-demo -- :app:assembleDebug
 gradlew-tool --tail 120 --cwd android-demo -- :app:assembleDebug
+gradlew-tool --timeout 900000 --cwd android-demo -- :app:assembleDebug
 gradlew-tool --full-output --cwd android-demo -- :app:assembleDebug
 ```

@@ -36,7 +36,7 @@ export function formatTextResult(result: BuildSummary): string {
     lines.push(result.suggestion);
   }
 
-  if (result.status === "failed" && result.tail.length > 0) {
+  if ((result.status === "failed" || result.status === "timed-out") && result.tail.length > 0) {
     lines.push("");
     lines.push("LOG_TAIL:");
     lines.push(...result.tail);

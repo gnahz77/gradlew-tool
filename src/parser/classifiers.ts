@@ -17,6 +17,7 @@ const CATEGORY_RULES: CategoryRule[] = [
   { category: "test-failure", pattern: /There were failing tests|FAILED TESTS|Tests? run: .*Failures:|AssertionFailedError|expected:.*but was:/i },
   { category: "sdk-environment-error", pattern: /SDK location not found|ANDROID_HOME|ANDROID_SDK_ROOT|No installed build tools found|Platform Android SDK/i },
   { category: "permission-error", pattern: /Permission denied|Access is denied|EACCES|EPERM/i },
+  { category: "process-timeout", pattern: /Process exceeded timeout of .*ms and was terminated\./i },
 ];
 
 const SUGGESTIONS: Partial<Record<ErrorCategory, string>> = {
@@ -24,6 +25,7 @@ const SUGGESTIONS: Partial<Record<ErrorCategory, string>> = {
   "dependency-resolution": "Check repository configuration, dependency coordinates, network access, and proxy settings.",
   "sdk-environment-error": "Verify local Android SDK setup such as `local.properties`, `ANDROID_HOME`, or `ANDROID_SDK_ROOT`.",
   "permission-error": "Check file permissions, antivirus interference, and whether the build directory is writable.",
+  "process-timeout": "Increase `--timeout`, inspect the saved log, or optimize the Gradle task before retrying.",
 };
 
 export function classifyText(text: string): ErrorCategory {

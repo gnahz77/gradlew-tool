@@ -48,6 +48,7 @@ export function parseCliArgs(argv: string[]): CliOptions {
     json: false,
     showWarnings: false,
     tail: 80,
+    timeout: 600000,
     fullOutput: false,
     logDir: ".agent-build",
     cwd: process.cwd(),
@@ -102,6 +103,9 @@ export function parseCliArgs(argv: string[]): CliOptions {
         continue;
       case "--tail":
         options.tail = readNumberArg(argv, ++index, "--tail");
+        continue;
+      case "--timeout":
+        options.timeout = readNumberArg(argv, ++index, "--timeout");
         continue;
       case "--log-dir":
         options.logDir = readStringArg(argv, ++index, "--log-dir");
@@ -163,6 +167,7 @@ Options:
   --json
   --show-warnings
   --tail <n>
+  --timeout <ms>
   --full-output
   --log-dir <dir>
   --gradlew <path>

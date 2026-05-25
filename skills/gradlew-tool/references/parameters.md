@@ -17,6 +17,12 @@
 - Default is `80`
 - Tail output is filtered to remove `> Task ...` lines unless `--full-output` is used
 
+`--timeout <ms>`
+
+- Set the maximum execution time for the Gradle process in milliseconds
+- Default is `600000` (10 minutes)
+- When exceeded, the process is terminated and the result category is `process-timeout`
+
 `--full-output`
 
 - Stream raw Gradle output directly
