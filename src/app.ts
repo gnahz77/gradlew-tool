@@ -5,7 +5,7 @@ import { formatTextResult } from "./reporter/textReporter.js";
 import { runGradle } from "./runner/gradleRunner.js";
 import type { CliOptions, InitInstallResult, InitOptions, ShellMode } from "./types/options.js";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 const SHELL_MODES = new Set<ShellMode>(["direct", "powershell", "pwsh", "cmd", "bash", "sh"]);
 
 export async function main(argv = process.argv.slice(2)): Promise<number> {

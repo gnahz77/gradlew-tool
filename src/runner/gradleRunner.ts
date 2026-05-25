@@ -86,6 +86,7 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
     const child = spawn(spawnSpec.command, spawnSpec.args, {
       cwd: options.cwd,
       shell: false,
+      stdio: ["ignore", "pipe", "pipe"],
       windowsHide: true,
       env: process.env,
     });
@@ -93,7 +94,7 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
     let timedOut = false;
     let timeoutHandle: NodeJS.Timeout | undefined;
 
-    const finalize = (outcome: ExecutionOutcome) => {
+    const finalize = async (outcome: ExecutionOutcome) => {
       if (finished) {
         return;
       }
@@ -104,7 +105,13 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
       }
 
       lineHandler.flush();
-      logStream.end();
+
+      try {
+        await endWritableStream(logStream);
+      } catch (error) {
+        reject(error);
+        return;
+      }
 
       const durationMs = Date.now() - startedAt;
       if (outcome.timedOut) {
@@ -200,7 +207,7 @@ export async function runGradle(options: CliOptions): Promise<BuildSummary> {
     });
 
     child.on("close", (code) => {
-      finalize({
+      void finalize({
         exitCode: code ?? 1,
         timedOut,
       });
@@ -234,4 +241,27 @@ function createSpawnSpec(shell: string, gradlewPath: string, command: string, ar
   }
 
   return { command, args };
+}
+
+function endWritableStream(stream: fs.WriteStream): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const cleanup = () => {
+      stream.off("finish", handleFinish);
+      stream.off("error", handleError);
+    };
+
+    const handleFinish = () => {
+      cleanup();
+      resolve();
+    };
+
+    const handleError = (error: Error) => {
+      cleanup();
+      reject(error);
+    };
+
+    stream.once("finish", handleFinish);
+    stream.once("error", handleError);
+    stream.end();
+  });
 }

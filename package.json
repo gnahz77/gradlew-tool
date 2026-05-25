@@ -1,6 +1,6 @@
 {
   "name": "gradlew-tool",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI-friendly Gradle wrapper that summarizes Android and Gradle build output.",
   "repository": {
     "type": "git",

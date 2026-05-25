@@ -100,5 +100,8 @@ describe("runGradle", () => {
 
     expect(result.status).toBe("success");
     expect(result.category).toBe("none");
+
+    const logPath = path.resolve(cwd, result.fullLog);
+    expect(fs.readFileSync(logPath, "utf8")).toContain("BUILD SUCCESSFUL in 1s");
   });
 });
